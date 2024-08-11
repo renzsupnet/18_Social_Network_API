@@ -102,6 +102,8 @@ module.exports = {
       if (!thought){
         return res.status(404).json({ message: 'No such user exists' });
       }
+
+      res.status(200).json({ message: 'Reaction successfully deleted' });
     } catch (err) {
       console.log(err);
       res.status(500).json(err)
