@@ -1,5 +1,5 @@
 const connection = require('../config/connection');
-const { User, Thought, Reaction } = require('../models');
+const { User, Thought} = require('../models');
 
 connection.on('error', (err) => err);
 
@@ -74,9 +74,7 @@ connection.once('open', async () => {
       console.log('Database seeded successfully!');
     } catch (error) {
       console.error('Error seeding database:', error);
-    } finally {
-      mongoose.disconnect();
-    }
+    } 
   };
   
   seedDatabase();
