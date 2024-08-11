@@ -5,7 +5,7 @@ module.exports = {
   async getThoughts(req, res) {
     try {
       const thoughts = await Thought.find();
-      res.json(thoughts);
+      res.status(200).json(thoughts);
     } catch (err) {
       console.log(err)
       res.status(500).json(err);
@@ -20,7 +20,7 @@ module.exports = {
         return res.status(404).json({ message: 'No thought with that ID' });
       }
 
-      res.json(thought);
+      res.status(200).json(thought);
     } catch (err) {
       console.log(err)
       res.status(500).json(err);
@@ -32,7 +32,7 @@ module.exports = {
       const thought = await Thought.create(req.body);
       // Push the created thought's _id to the associated user's thoughts array field
       const updateUser = await User.updateOne({ _id: req.body.userId}, { $push: { thoughts: thought._id } });
-      res.json(thought);
+      res.status(201).json(thought);
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -66,7 +66,7 @@ module.exports = {
         res.status(404).json({ message: 'No thought with this id!' });
       }
 
-      res.json(thought);
+      res.status(200).json(thought);
     } catch (err) {
       console.log(err)
       res.status(500).json(err);
@@ -85,6 +85,8 @@ module.exports = {
       if (!thought){
         return res.status(404).json({ message: 'No such thought exists' });
       }
+
+      res.status(201).json(thought);
     } catch (err) {
       console.log(err)
       res.status(500).json(err);

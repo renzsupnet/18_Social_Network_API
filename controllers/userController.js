@@ -7,7 +7,7 @@ module.exports = {
     try {
       const users = await User.find();
 
-      res.json(users);
+      res.status(200).json(users);
 
     } catch (err) {
       console.log(err);
@@ -26,7 +26,7 @@ module.exports = {
         return res.status(404).json({ message: 'No user with that ID' })
       }
 
-      res.json(user);
+      res.status(200).json(user);
 
     } catch (err) {
       console.log(err);
@@ -37,7 +37,7 @@ module.exports = {
   async createUser(req, res) {
     try {
       const user = await User.create(req.body);
-      res.json(user);
+      res.status(201).json(user);
 
     } catch (err) {
       console.log(err)
@@ -52,7 +52,7 @@ module.exports = {
         { $set: req.body },
         { runValidators: true, new: true }
       );
-      res.json(user);
+      res.status(200).json(user);
 
     } catch (err) {
       console.log(err)
@@ -68,7 +68,7 @@ module.exports = {
         return res.status(404).json({ message: 'No such user exists' });
       }
 
-      res.json({ message: 'User successfully deleted' });
+      res.status(200).json({ message: 'User successfully deleted' });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -87,7 +87,7 @@ module.exports = {
         return res.status(404).json({ message: 'No such user exists' });
       }
 
-      res.status(200).json(user);
+      res.status(201).json(user);
 
     } catch (err) {
       console.log(err);
@@ -106,6 +106,9 @@ module.exports = {
       if (!user){
         return res.status(404).json({ message: 'No such user exists' });
       }
+
+      res.status(200).json({ message: 'Friend successfully deleted' });
+
     } catch (err) {
       console.log(err);
       res.status(500).json(err)
