@@ -1,7 +1,9 @@
 const connection = require('../config/connection');
 const { User, Thought} = require('../models');
 
-connection.on('error', (err) => err);
+connection.on('error', (err) => {
+  console.error('MongoDB connection error:', err);
+});
 
 connection.once('open', async () => {
   console.log('connected');
@@ -77,7 +79,7 @@ connection.once('open', async () => {
     } 
   };
   
-  seedDatabase();
+  await seedDatabase();
   console.info('Seeding complete! 🌱');
   process.exit(0);
 });
