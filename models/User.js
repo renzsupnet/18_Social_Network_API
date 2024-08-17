@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const Thought = require('./Thought');
 const validator = require('validator');
 
 // Schema to create User model
@@ -32,10 +31,10 @@ const userSchema = new Schema(
   
   {
     toJSON: {
-      id: false,
       getters: true,
       virtuals: true
     },
+    id: false
   }
 );
 
@@ -47,15 +46,6 @@ userSchema
     return `${this.friends.length}`;
   });
 
-userSchema.pre('remove', async function(next) {
-  try {
-    // Remove all associated thoughts with this user
-    await Thought.deleteMany({ user: this._id});
-    next();
-  } catch (error) {
-    next(error);
-  }
-})
 
 const User = model('User', userSchema);
 
